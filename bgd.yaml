@@ -1,0 +1,17 @@
+apiVersion: demo.google.com/v1
+kind: BlueGreenDeployment
+metadata:
+  name: blue-green-deployment
+  namespace: default
+  labels:
+    app: nginx
+spec:
+  replicas: 1 # determine number of RS replicas
+  selector:
+    matchLabels:
+      app: nginx # determine which RSs to control
+  template:
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.8
