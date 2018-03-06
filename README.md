@@ -2,9 +2,9 @@
 
 **This is not an official Google product**
 
-This repository implements a simple blue-green deployment controller using a CustomResourceDefinition (CRD). The controller maintains 2 replicasets (blue and green) all the time, alternating between the colors for new rollouts.
+This repository implements a simple blue-green deployment controller using a CustomResourceDefinition (CRD). The controller maintains 2 ReplicaSets (blue and green) all the time, alternating between the colors for new rollouts.
 
-## Running
+## Running Locally
 
 3 terminals are needed to run the controller locally (one for running local cluster, another for running the controller, and last one for interacting with the controller).
 
@@ -20,7 +20,7 @@ cd bgd-controller
 cp -r . ../kubernetes/staging/src/k8s.io/bgd-controller
 
 # navigate to "kubernetes" directory
-cd ../kubernetes/vendor/k8s.io
+cd ../kubernetes
 
 # create a symlink in vendor package
 ln -s ../../staging/src/k8s.io/bgd-controller vendor/k8s.io/bgd-controller
@@ -50,7 +50,7 @@ kubectl create -f crd.yaml
 # create a BlueGreenDeployment custom resource object
 kubectl create -f bgd.yaml
 
-# check replicasets, pods, and service created through the custom resource
+# check ReplicaSets, pods, and service created through the custom resource
 kubectl get all
 ```
 
@@ -78,18 +78,24 @@ You can clean up the CRD with:
 
     kubectl delete crd bluegreendeployments.demo.google.com
 
-CRD deletion cleans up the custom resource.
+CRD deletion cleans up the CRD, `bluegreendeployment` custom resource, and ReplicaSets.
 
-You can also clean up the custom resource with:
+You can also clean up the `bluegreendeployment` custom resource with:
 
     kubectl delete bluegreendeployment blue-green-deployment
 
-Custom resource deletion cleans up replicasets and service created through it.
+Custom resource deletion cleans up the custom resource and ReplicaSets.
+
+For now, you have to manually delete the `bgd-svc` service.
+
+    kubectl delete service bgd-svc
+
+_Note: The `bgd-svc` service **MUST** be deleted before restarting the custom controller to prevent a runtime error_.
 
 ## Limitations
 
 The controller does not support some manual actions by the user, but this should not affect its main functionalities.
-* When a replicaset is deleted manually, the controller will not respawn it and this will break the controller.
+* When a ReplicaSet is deleted manually, the controller will not respawn it and this will break the controller.
 * When an controller is turned off manually, all created resources will stay intact. The user has to manually delete all the resources before restarting the controller again, else there will be conflicts.
 
 ## References

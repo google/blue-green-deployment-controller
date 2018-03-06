@@ -9,7 +9,7 @@ spec:
   replicas: 1 # determine number of RS replicas
   selector:
     matchLabels:
-      app: nginx # determine which RSs to control
+      app: nginx
   template:
     spec:
       containers:

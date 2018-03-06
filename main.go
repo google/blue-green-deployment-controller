@@ -235,10 +235,10 @@ func main() {
 	// Create a CRD client interface
 	bgdClient, err := bgdclientset.NewForConfig(config)
 	if err != nil {
-		panic(fmt.Errorf("error building kubernetes clientset: %v", err))
+		panic(fmt.Errorf("error building CRD clientset: %v", err))
 	}
 
-	// Create a CRD client interface
+	// Create a kubernetes client interface
 	kubeClient, err := kubernetes.NewForConfig(config)
 	if err != nil {
 		panic(fmt.Errorf("Error building kubernetes clientset: %v", err))
