@@ -1,0 +1,12 @@
+apiVersion: controller.google.com/v1alpha1
+kind: BlueGreenDeployment
+metadata:
+  name: blue-green-deployment
+spec:
+  replicas: 1 # determine number of pods for both Blue and Green ReplicaSets
+  podSpec:
+    containers:
+    - name: nginx
+      image: nginx:1.7.8
+      command: ["sh", "-c", "sleep infinity"]
+      
