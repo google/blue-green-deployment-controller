@@ -67,6 +67,8 @@ kubectl edit bluegreendeployment blue-green-deployment
 
 ## Cleanup
 
+When the controller is terminated, all created resources will stay intact. When the controller is rebooted, it will pick up the resources. If you want the resources to be cleaned up after terminating the controller, you have to delete them manually.
+
 You can clean up the CRD with:
 
     kubectl delete crd bluegreendeployments.controller.google.com
@@ -85,6 +87,4 @@ For now, you have to manually delete the `bgd-svc` service.
 
 ## Limitations
 
-The controller does not support some manual actions by the user, but this should not affect its main functionalities.
-* When a ReplicaSet is deleted manually, the controller will not respawn it and this will break the controller.
-* When an controller is turned off manually, all created resources will stay intact. The user has to manually delete all the resources before restarting the controller again.
+* When a ReplicaSet is deleted manually, the controller will not respawn it and this will break the mechanism.
