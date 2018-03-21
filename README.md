@@ -1,5 +1,7 @@
 # Blue-Green Deployment controller
 
+**WARNING: Please refer to kubebuilder branch for newest codes. This branch will be deleted in future.**
+
 **This is not an official Google product**
 
 This repository implements a simple blue-green deployment controller using a CustomResourceDefinition (CRD). The controller maintains 2 ReplicaSets (blue and green) all the time, alternating between the colors for new rollouts.
